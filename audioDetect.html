@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Headset Detection</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      text-align: center;
+    }
+    #headsetStatus {
+      font-size: 1.5rem;
+      margin-top: 2rem;
+    }
+    button {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Headset Detection</h1>
+  <button onclick="checkHeadset()">Check Headset</button>
+  <p id="headsetStatus">🔄 Checking headset status...</p>
+
+  <script>
+    async function checkHeadset() {
+      try {
+        // Request permission to access audio devices
+        await navigator.mediaDevices.getUserMedia({ audio: true });
+
+        const devices = await navigator.mediaDevices.enumerateDevices();
+        const audioOutputs = devices.filter(device => device.kind === 'audiooutput');
+
+        const hasHeadphones = audioOutputs.some(device =>
+          device.label.toLowerCase().includes('headphones') ||
+          device.label.toLowerCase().includes('headset')
+        );
+
+        document.getElementById('headsetStatus').textContent = hasHeadphones
+          ? '🎧 Headset Detected'
+          : '🔈 No Headset Detected';
+      } catch (err) {
+        console.error('Error accessing devices:', err);
+        document.getElementById('headsetStatus').textContent = '⚠️ Unable to check headset status.';
+      }
+    }
+
+    // Run once on load
+    checkHeadset();
+  </script>
+</body>
+</html>
