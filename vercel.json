@@ -5,7 +5,7 @@
         "headers": [
           {
             "key": "Permissions-Policy",
-            "value": "speaker-selection=(self)"
+            "value": "microphone=(), speaker-selection=(self)"
           }
         ]
       }
