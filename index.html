@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="Permissions-Policy" content="speaker-selection=(self)">
   <title>Headset Detection</title>
   <style>
     body {
@@ -22,16 +23,39 @@
 </head>
 <body>
   <h1>Headset Detection</h1>
-  <button onclick="checkHeadset()">Check Headset</button>
+  <button onclick="checkHeadset()">Check Headset hiii</button>
   <p id="headsetStatus">🔄 Checking headset status...</p>
 
   <script>
     async function checkHeadset() {
       try {
         // Request permission to access audio devices
-        await navigator.mediaDevices.getUserMedia({ audio: true });
+        //await navigator.mediaDevices.getUserMedia({ audio: true });
+        //await navigator.mediaDevices.getUserMedia({});
+        /*console.log('Requesting audio device access...');
+        console.log(navigator.mediaDevices);
+        
+        if (!navigator.mediaDevices.selectAudioOutput) {
+          document.getElementById('headsetStatus').textContent = 'console.log("selectAudioOutput() not supported or not in secure context.");';
+          //console.log("selectAudioOutput() not supported or not in secure context.");
+          //return;
+        }
+        else{
+          console.log('selectAudioOutput() supported');
+        }
+
+        audioDevice.array.forEach(element => {
+          console.log(element);
+          if (element.kind === 'audiooutput') {
+            console.log('Audio Output Device:', element);
+          }
+        });
+
+        // Display prompt to select device
+        const audioDevice = await navigator.mediaDevices.selectAudioOutput();*/
 
         const devices = await navigator.mediaDevices.enumerateDevices();
+        console.log('Devices:', devices);
         const audioOutputs = devices.filter(device => device.kind === 'audiooutput');
 
         const hasHeadphones = audioOutputs.some(device =>
